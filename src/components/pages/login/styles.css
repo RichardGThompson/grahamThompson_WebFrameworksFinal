@@ -1,29 +1,59 @@
 .login-page-wrapper{
     padding: 1rem 3rem;
-}
-
-.login-page-wrapper .login-container{
     display: grid;
     grid-template-columns: 40% 60%;
-    background-color: red;
-    height: 500px;
+    min-height: 500px;
 }
 
-.login-container .left-container{
+/*** LOGIN EXTRAS ***/
+.login-page-wrapper .login-extras{
     display: flex;
-    justify-content: left;
     align-items: center;
-    height: 100%;
+    padding: 0 1rem;
+    color: #f1f2f6;
 }
 
-.login-container .right-container{
+.login-extras h1, .login-extras p{
+    margin: 0;
+    padding: 0;
+}
+
+
+/*** LOGIN BODY ***/
+.login-page-wrapper .login-body{
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.login-body .login-box{
+    background-color: #636e72;
+    max-height: 400px;
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+}
+
+.login-box .form-container form{
+    padding-bottom: 1rem;
+}
+
+.form-container .input-fields{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.login-box .alt-container{
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-.login-container .right-container .login-box{
-    height: 400px;
-    width: 100%;
-    background-color: plum;
+@media screen and (max-width: 700px) {
+    .login-page-wrapper{
+        padding: 1rem 1rem;
+        display: grid;
+        grid-template-columns: 100%;
+        min-height: 500px;
+    }
 }

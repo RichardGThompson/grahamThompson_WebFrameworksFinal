@@ -15,8 +15,6 @@ code {
     monospace;
 }
 
-
-
 /****** BUTTONS ******/
 .btn{
   background-color: #2e86de;
@@ -32,4 +30,24 @@ code {
 
 .btn:hover{
   filter: brightness(75%);
+}
+
+.btn.btn-fw{
+  width: 100%;
+}
+
+.btn.btn-2{
+  background-color: #00b894;
+}
+
+/****** INPUT ******/
+.text-input{
+  height: 40px;
+  border-radius: 14px;
+  padding-left: 1rem;
+  font-size: 18px;
+}
+
+.text-input:not(:last-of-type){
+  margin-bottom: 0.65rem;
 }
