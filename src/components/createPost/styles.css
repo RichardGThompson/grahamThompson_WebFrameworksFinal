@@ -1,0 +1,57 @@
+.post-container{
+    display: grid;
+    grid-template-columns: 100px auto;
+    justify-items: center;
+}
+
+.post-container .post-attributes{
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #57606f;
+}
+
+.post-container .profile-picture-container{
+    height: 70px;
+    margin-right: 1rem;
+}
+
+.profile-picture-container img{
+    height: 100%;
+    border-radius: 50%;
+}
+
+.post-container textarea{
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+}
+
+.post-actions{
+    display: flex;
+    flex-direction: row;
+}
+
+.post-types svg{
+    height: 100%;
+    width: 25px;
+    color: #2e86de;
+    cursor: pointer;
+}
+
+.post-types svg:not(:first-of-type){
+    margin-left: 1rem;
+}
+
+.post-types svg path{
+    height: 100%;
+}
+
+.post-actions .post-button{
+    margin-left: auto;
+}

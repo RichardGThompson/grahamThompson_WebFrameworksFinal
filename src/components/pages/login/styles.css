@@ -1,0 +1,29 @@
+.login-page-wrapper{
+    padding: 1rem 3rem;
+}
+
+.login-page-wrapper .login-container{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background-color: red;
+    height: 500px;
+}
+
+.login-container .left-container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+}
+
+.login-container .right-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container .right-container .login-box{
+    height: 400px;
+    width: 100%;
+    background-color: plum;
+}
