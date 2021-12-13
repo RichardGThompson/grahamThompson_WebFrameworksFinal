@@ -1,13 +1,17 @@
 import './styles.css';
 import {CreatePost} from './../../createPost';
 import {Header} from '../../header';
-
+import {TextPost} from '../../textPost';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import {v4 as uuidv4} from 'uuid';
 
 export const Home = (props) => {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [posts, setPosts] = useState([]);
+
+    const navigate = useNavigate();
 
     const navigate = useNavigate();
 
@@ -22,6 +26,28 @@ export const Home = (props) => {
             }
         });
     }, [])
+
+    // Get the posts from the DB.
+    useEffect( () => {
+        const getPosts = async() => {
+            try{
+                const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT);
+                const data = await response.json();
+
+                const formattedData = data.documents.map( (post) => {
+                    return post.fields;
+                });
+
+                console.log(formattedData);
+                setPosts(formattedData);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+
+        getPosts();
+    }, []);
 
     // Log out the user.
     const logoutFunction = () => {
@@ -39,6 +65,9 @@ export const Home = (props) => {
             <div className="home-container">
                 <CreatePost/>
                 <h2>Recent Posts</h2>
+                <div className="posts-container">
+                    {posts.map( (post) => <TextPost key={uuidv4()} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked}/>)}
+                </div>
             </div>
         </div>
         
