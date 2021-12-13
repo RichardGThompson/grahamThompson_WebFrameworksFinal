@@ -26,7 +26,11 @@ export const Home = (props) => {
                 // Get the current user's ID based on their email.
                 const userEmail = auth.currentUser.email;
 
-                setUserData(getUserData(userEmail));
+                getUserData(userEmail).then(function(value) {
+                    setUserData(value);
+                });
+                
+                // setUserData(getUserData(userEmail));
             }
         });
     }, [])

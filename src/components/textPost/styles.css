@@ -42,11 +42,11 @@
     height: 50px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .text-post-container .post-interactions-container svg{
     margin-right: 0.5rem;
-    cursor: pointer;
     height: 100%;
     width: 25px;
 }
