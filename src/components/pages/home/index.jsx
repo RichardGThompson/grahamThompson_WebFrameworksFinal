@@ -13,8 +13,6 @@ export const Home = (props) => {
 
     const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
     // Get the current login state of the user.
     useEffect( () => {
         // Get the authorization status from the server.
