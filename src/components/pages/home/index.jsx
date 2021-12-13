@@ -8,8 +8,8 @@ import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import {v4 as uuidv4} from 'uuid';
 
 export const Home = (props) => {
-    const [loggedIn, setLoggedIn] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [userData, setUserData] = useState([]);
 
     const navigate = useNavigate();
 
@@ -22,8 +22,31 @@ export const Home = (props) => {
             if(!user){
                 navigate('/login', {replace: true});
             }
+            else{
+                // Get the current user's ID based on their email.
+                const userEmail = auth.currentUser.email;
+
+                setUserData(getUserData(userEmail));
+            }
         });
     }, [])
+
+    // Get the user's data from the DB based on their email address.
+    const getUserData = async(userEmail) => {
+        try{
+            const response = await fetch(process.env.REACT_APP_USER_ENDPOINT);
+            const data = await response.json();
+
+            const formattedUsers = data.documents.map( (user) => {
+                return user.fields;
+            });
+            const userData = formattedUsers.filter(user => user.userEmail.stringValue === userEmail);
+            return userData;
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
 
     // Get the posts from the DB.
     useEffect( () => {
@@ -35,8 +58,6 @@ export const Home = (props) => {
                 const formattedData = data.documents.map( (post) => {
                     return post.fields;
                 });
-
-                console.log(formattedData);
                 setPosts(formattedData);
             }
             catch(err){
@@ -64,7 +85,7 @@ export const Home = (props) => {
                 <CreatePost/>
                 <h2>Recent Posts</h2>
                 <div className="posts-container">
-                    {posts.map( (post) => <TextPost key={uuidv4()} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked}/>)}
+                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked}/>)}
                 </div>
             </div>
         </div>
