@@ -3,21 +3,54 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 3rem;
+    /* padding: 0 3rem; */
     border-bottom: 1px solid #57606f;
+    justify-content: space-between;
 }
 
-.header-wrapper .profile-picture-container{
+.header-wrapper .left-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+}
+
+.header-wrapper .left-wrapper .profile-picture-container{
     height: 70%;
     margin-right: 1rem;
 }
 
-.header-wrapper .profile-picture-container img{
+.header-wrapper .left-wrapper .profile-picture-container img{
     height: 100%;
     border-radius: 50%;
 }
 
-.header-wrapper .page-name h1{
+.header-wrapper .left-wrapper .page-name h1{
     color: #f1f2f6;
     font-size: 22px;
+}
+
+.header-wrapper .right-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.header-wrapper .right-wrapper ul{
+    display: flex;
+    flex-direction: row;
+}
+
+.header-wrapper .right-wrapper li:not(:first-of-type){
+    margin-left: 1.5rem;
+}
+
+.header-wrapper .right-wrapper .header-link{
+    color: #f1f2f6;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    text-decoration: none;
+    list-style: none;
 }
