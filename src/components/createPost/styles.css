@@ -55,3 +55,42 @@
 .post-actions .post-button{
     margin-left: auto;
 }
+
+.fileupload{
+    display:none;
+}
+
+.image-container{
+    width: 65%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+
+.image-container img{
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    /* background-color: #6d747a; */
+}
+
+.image-container .clear-container{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    height: 30px;
+    width: 30px;
+    border-radius: 100px;
+    color: #222f3e;
+    content: "";
+    cursor:pointer;
+    transition: color 0.25s ease;
+}
+
+.image-container .clear-container:hover{
+    color: #ee5253;
+}
+
+.image-container:not(.active){
+    display:none;
+}

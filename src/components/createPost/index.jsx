@@ -1,14 +1,50 @@
 import './styles.css';
 import React, {useState, useEffect} from 'react';
-import {FaRegImage, FaPollH, FaQuoteRight} from 'react-icons/fa';
+import {FaRegImage, FaQuoteRight, FaTimesCircle} from 'react-icons/fa';
 
 export const CreatePost = (props) => {
     const [postType, setPostType] = useState('text');
+    const [image, setImage] = useState(null);
+    const  [imageURL, setImageURL] = useState('');
 
-    // Listen if the post type has been changed.
     useEffect( () => {
-        //console.log(`Post type changed to: ${postType}`);
+        if(image){
+            setImageURL(URL.createObjectURL(image));
+            // Set the image container to be active.
+            const imageContainer = document.querySelector(".image-container");
+            // Make the image container active.
+            imageContainer.classList.add("active");
+        }
+    }, [image]);
+
+    useEffect( () => {
+        console.log("post type changed!");
     }, [postType]);
+
+    const createPost = () => {
+        console.log('create post');
+    }
+
+    const handleTypeChange = (type) => {
+        if(type === 'image'){
+            const imgUpload = document.querySelector('#img-upload');
+            imgUpload.click();
+        }
+        setPostType(type);
+    }
+
+    const onImageChange = (e) => {
+        setImage(e.target.files[0]);
+    }
+
+    const removeImage = () => {
+        setImage(null);
+        setImageURL('');
+        const imageContainer = document.querySelector(".image-container");
+        imageContainer.classList.remove("active");
+
+        // Set the image container to be inactive.
+    }
 
     return(
         <div className="create-post-wrapper">
@@ -21,13 +57,17 @@ export const CreatePost = (props) => {
                 {/* TODO The styling of this needs to be refined */}
                 <div className="post-attributes">
                     <textarea name="post-text" id="post-text" placeholder="Post a thing!" maxLength="255"></textarea>
+                    <div className="image-container">
+                        <FaTimesCircle className="clear-container" onClick={() => removeImage()}/>
+                        <img src={imageURL} alt="" />
+                    </div>
+                    <input type="file" id='img-upload' className="fileupload" accept="image/*" onChange={onImageChange}/>
                     <div className="post-actions">
                         <div className="post-types">
-                            <FaQuoteRight onClick={() => setPostType('text')}/>
-                            <FaRegImage onClick={() => setPostType('image')}/>
-                            <FaPollH onClick={() => setPostType('poll')}/>
+                            <FaQuoteRight onClick={() => handleTypeChange('text')}/>
+                            <FaRegImage onClick={() => handleTypeChange('image')}/>
                         </div>
-                        <button className="post-button btn btn-1">Post</button>
+                        <button onClick={() => createPost()} className="post-button btn btn-1">Post</button>
                     </div>
                 </div>
             </div>
