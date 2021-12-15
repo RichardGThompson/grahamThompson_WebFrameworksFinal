@@ -26,8 +26,6 @@ export const Login = (props) => {
     }
 
     const signUpUser = async(formValues) => {
-        const auth = getAuth();
-
         try{
             const auth = getAuth();
             // Validate that the passwords are matching

@@ -1,10 +1,11 @@
 .text-post-container{
-    min-height: 200px;
+    min-height: 100px;
     width: 80%;
     background-color: #364b64;
     border-radius: 15px;
     margin: 0 auto;
     padding: 1rem;
+    position: relative;
 }
 
 .text-post-container .author-container{
@@ -32,4 +33,29 @@
 
 .text-post-container .text-body{
     font-size: 20px;
+}
+
+.text-post-container .post-interactions-container{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.text-post-container .post-interactions-container svg{
+    margin-right: 0.5rem;
+    height: 100%;
+    width: 25px;
+}
+
+.text-post-container .post-interactions-container svg path{
+    height: 100%;
+}
+
+.text-post-container .post-interactions-container .like-count-text{
+    font-size: 18px;
+    font-weight: 700;
 }
