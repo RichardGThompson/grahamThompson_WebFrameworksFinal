@@ -89,7 +89,7 @@ export const Home = (props) => {
                 <CreatePost/>
                 <h2>Recent Posts</h2>
                 <div className="posts-container">
-                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked}/>)}
+                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked} postImage={post.imageURL}/>)}
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@
     margin: 0 auto;
     padding: 1rem;
     position: relative;
+    margin-bottom: 1rem;
 }
 
 .text-post-container .author-container{
@@ -58,4 +59,17 @@
 .text-post-container .post-interactions-container .like-count-text{
     font-size: 18px;
     font-weight: 700;
+}
+
+.text-post-container .post-image-container{
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+.text-post-container .post-image-container img{
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
 }

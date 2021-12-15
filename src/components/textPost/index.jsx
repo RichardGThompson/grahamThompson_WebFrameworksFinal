@@ -61,6 +61,15 @@ export const TextPost = (props) => {
                 {props.body.stringValue}
             </div>
 
+            {/* Check to see if there is an image on the post */}
+            {
+                props.postImage.stringValue && 
+
+                <div className="post-image-container">
+                    <img src={props.postImage.stringValue} alt="" />
+                </div>
+            }
+
             {/* The like feature was removed due to constraints of the assignment. To do this, FireStore Realtime DB should be used. */}
             {/* <div className="post-interactions-container" onClick={() => toggleLikePost()}>
                 {
