@@ -1,11 +1,20 @@
 import './styles.css';
 import React, {useState, useEffect} from 'react';
 import {FaRegImage, FaQuoteRight, FaTimesCircle} from 'react-icons/fa';
+import {v4 as uuidv4} from 'uuid'
+
+import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 
 export const CreatePost = (props) => {
     const [postType, setPostType] = useState('text');
     const [image, setImage] = useState(null);
-    const  [imageURL, setImageURL] = useState('');
+    const [imageURL, setImageURL] = useState('');
+    const fileName = uuidv4();
+    const [payload, setPayload] = useState({});
+
+    const storage = getStorage();
+
+    const storageRef = ref(storage, fileName);
 
     useEffect( () => {
         if(image){
@@ -21,8 +30,102 @@ export const CreatePost = (props) => {
         console.log("post type changed!");
     }, [postType]);
 
+    const createPostPayload = (bodyText, imagePath) => {
+        if(imagePath){
+            return({
+                fields: {
+                    body: {
+                        stringValue: bodyText
+                    },
+                    userID: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    userImage: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    userName: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    usersLiked: {
+                        arrayValue: {values: [{stringValue: "TMP_VAL"}]}
+                    },
+                    imageURL: {
+                        stringValue: imagePath
+                    },
+                }
+            });
+        }
+        else{
+            return({
+                fields: {
+                    body: {
+                        stringValue: bodyText
+                    },
+                    userID: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    userImage: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    userName: {
+                        stringValue: "TMP_VALUE"
+                    },
+                    usersLiked: {
+                        arrayValue: {values: [{stringValue: "TMP_VAL"}]}
+                    },
+                    imageURL: {
+                        stringValue: ""
+                    },
+                }
+            });
+        }
+    }
+
+    useEffect( () => {
+        const uploadPayload = async() => {
+            console.log('uploaded');
+            try{
+                const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(payload)
+                });
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        
+        if(payload.fields){
+            uploadPayload();
+        }
+        else{
+            console.log(payload);
+        }
+    }, [payload])
+
     const createPost = () => {
-        console.log('create post');
+        // Check to see if there is an image present that needs to be uploaded.
+        const bodyText = document.querySelector('#post-text').value;
+        if(!bodyText){
+            return;
+        }
+        
+        if(image){
+            const imageRef = ref(storage, imageURL);
+            let imagePATH;
+            uploadBytes(storageRef, image).then((snapshot) => {
+                getDownloadURL(ref(storage, fileName)).then((url)=>{
+                    let tmpPayload = createPostPayload(bodyText, url);
+                    setPayload(tmpPayload);
+                });
+            });
+        }
+        else{
+            setPayload(createPostPayload(bodyText, null));
+        }
     }
 
     const handleTypeChange = (type) => {
@@ -40,10 +143,9 @@ export const CreatePost = (props) => {
     const removeImage = () => {
         setImage(null);
         setImageURL('');
+        // Set the image container to be inactive.
         const imageContainer = document.querySelector(".image-container");
         imageContainer.classList.remove("active");
-
-        // Set the image container to be inactive.
     }
 
     return(
