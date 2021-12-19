@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 100px auto;
     justify-items: center;
+    position: relative;
 }
 
 .post-container .post-attributes{
@@ -92,4 +93,51 @@
 
 .image-container:not(.active){
     display:none;
+}
+
+.create-post-wrapper{
+    position: relative;
+}
+
+.create-post-wrapper .uploading-container{
+    background-color: rgb(100, 100, 100);
+    opacity: 50%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    border-radius: 15px;
+    display: block;
+}
+
+.uploading-container .loading-components{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+
+}
+
+.uploading-container .loading-components .loader{
+    border: 5px solid rgba(150,150,150,1);
+    border-top: 5px solid #2e86de;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: speeeeeeeeeeeen 2s ease-in-out infinite;
+}
+
+@keyframes speeeeeeeeeeeen{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.uploading-container .loading-components p{
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
 }

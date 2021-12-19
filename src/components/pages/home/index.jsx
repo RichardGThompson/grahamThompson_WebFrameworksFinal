@@ -54,23 +54,25 @@ export const Home = (props) => {
 
     // Get the posts from the DB.
     useEffect( () => {
-        const getPosts = async() => {
-            try{
-                const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT);
-                const data = await response.json();
-
-                const formattedData = data.documents.map( (post) => {
-                    return post.fields;
-                });
-                setPosts(formattedData);
-            }
-            catch(err){
-                console.log(err);
-            }
-        }
-
         getPosts();
     }, []);
+
+    const getPosts = async() => {
+        try{
+            const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT);
+            const data = await response.json();
+
+            const formattedData = data.documents.map( (post) => {
+                return post.fields;
+            });
+            setPosts(formattedData);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+
 
     // Log out the user.
     const logoutFunction = () => {
@@ -86,10 +88,10 @@ export const Home = (props) => {
         <div>
             <Header logoutFunction={logoutFunction}/>
             <div className="home-container">
-                <CreatePost userData={userData}/>
+                <CreatePost userData={userData} getPostsFunction={getPosts}/>
                 <h2>Recent Posts</h2>
                 <div className="posts-container">
-                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked} postImage={post.imageURL}/>)}
+                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} postImage={post.imageURL}/>)}
                 </div>
             </div>
         </div>

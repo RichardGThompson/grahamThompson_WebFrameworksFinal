@@ -10,6 +10,7 @@ export const CreatePost = (props) => {
     const [imageURL, setImageURL] = useState('');
     const fileName = uuidv4();
     const [payload, setPayload] = useState({});
+    const [postUploading, setPostUploading] = useState(false);
 
     const storage = getStorage();
 
@@ -25,7 +26,45 @@ export const CreatePost = (props) => {
         }
     }, [image]);
 
-    const createPostPayload = (bodyText, imagePath) => {
+    useEffect( () => {
+        console.log(`Post uploading: ${postUploading}`);
+    }, [postUploading]);
+
+    useEffect( () => {
+
+        const clearInputs = () => {
+            const textInput = document.querySelector('#post-text');
+            textInput.value = "";
+            setImageURL("");
+            setImage(null);
+        }
+        
+        const uploadPayload = async() => {
+            try{
+                const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(payload)
+                });
+                clearInputs();
+                setPostUploading(false);
+                props.getPostsFunction();
+            }
+            catch(err){
+                console.log(err);
+                clearInputs();
+                setPostUploading(false);
+            }
+        }
+        
+        if(payload.fields){
+            uploadPayload();
+        }
+    }, [payload]);
+
+    const createPostPayload = (bodyText, imagePath) => {        
         if(imagePath){
             return({
                 fields: {
@@ -70,34 +109,15 @@ export const CreatePost = (props) => {
         }
     }
 
-    useEffect( () => {
-        const uploadPayload = async() => {
-            console.log('uploaded');
-            try{
-                const response = await fetch(process.env.REACT_APP_POSTS_ENDPOINT, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(payload)
-                });
-            }
-            catch(err){
-                console.log(err);
-            }
-        }
-        
-        if(payload.fields){
-            uploadPayload();
-        }
-    }, [payload])
-
+    
     const createPost = () => {
         // Check to see if there is an image present that needs to be uploaded.
         const bodyText = document.querySelector('#post-text').value;
         if(!bodyText){
             return;
         }
+
+        setPostUploading(true);
         
         if(image){
             const imageRef = ref(storage, imageURL);
@@ -135,6 +155,17 @@ export const CreatePost = (props) => {
 
     return(
         <div className="create-post-wrapper">
+            {
+                postUploading &&
+                <div className="uploading-container">
+                    <div className="loading-components">
+                        <div className="loader"></div>
+                        <p>Uploading...</p>
+                    </div>
+                    
+
+                </div>
+            }
             <h2>Create a Post!</h2>
             <div className="post-container">
                 <div className="profile-picture-container">
