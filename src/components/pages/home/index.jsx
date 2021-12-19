@@ -86,7 +86,7 @@ export const Home = (props) => {
         <div>
             <Header logoutFunction={logoutFunction}/>
             <div className="home-container">
-                <CreatePost/>
+                <CreatePost userData={userData}/>
                 <h2>Recent Posts</h2>
                 <div className="posts-container">
                     {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} usersLiked={post.usersLiked} postImage={post.imageURL}/>)}

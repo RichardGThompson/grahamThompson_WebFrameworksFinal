@@ -6,7 +6,6 @@ import {v4 as uuidv4} from 'uuid'
 import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 
 export const CreatePost = (props) => {
-    const [postType, setPostType] = useState('text');
     const [image, setImage] = useState(null);
     const [imageURL, setImageURL] = useState('');
     const fileName = uuidv4();
@@ -26,10 +25,6 @@ export const CreatePost = (props) => {
         }
     }, [image]);
 
-    useEffect( () => {
-        console.log("post type changed!");
-    }, [postType]);
-
     const createPostPayload = (bodyText, imagePath) => {
         if(imagePath){
             return({
@@ -38,16 +33,13 @@ export const CreatePost = (props) => {
                         stringValue: bodyText
                     },
                     userID: {
-                        stringValue: "TMP_VALUE"
+                        stringValue: props.userData[0].userID.stringValue
                     },
                     userImage: {
-                        stringValue: "TMP_VALUE"
+                        stringValue: "REPLACE_IN_APP"
                     },
                     userName: {
-                        stringValue: "TMP_VALUE"
-                    },
-                    usersLiked: {
-                        arrayValue: {values: [{stringValue: "TMP_VAL"}]}
+                        stringValue: (`${props.userData[0].userFirstName.stringValue} ${props.userData[0].userLastName.stringValue}`)
                     },
                     imageURL: {
                         stringValue: imagePath
@@ -62,16 +54,13 @@ export const CreatePost = (props) => {
                         stringValue: bodyText
                     },
                     userID: {
-                        stringValue: "TMP_VALUE"
+                        stringValue: props.userData[0].userID.stringValue
                     },
                     userImage: {
-                        stringValue: "TMP_VALUE"
+                        stringValue: "REPLACE_IN_APP"
                     },
                     userName: {
-                        stringValue: "TMP_VALUE"
-                    },
-                    usersLiked: {
-                        arrayValue: {values: [{stringValue: "TMP_VAL"}]}
+                        stringValue: (`${props.userData[0].userFirstName.stringValue} ${props.userData[0].userLastName.stringValue}`)
                     },
                     imageURL: {
                         stringValue: ""
@@ -100,9 +89,6 @@ export const CreatePost = (props) => {
         
         if(payload.fields){
             uploadPayload();
-        }
-        else{
-            console.log(payload);
         }
     }, [payload])
 
@@ -133,7 +119,6 @@ export const CreatePost = (props) => {
             const imgUpload = document.querySelector('#img-upload');
             imgUpload.click();
         }
-        setPostType(type);
     }
 
     const onImageChange = (e) => {
