@@ -1,6 +1,7 @@
 import './styles.css';
 import React, {useState, useEffect} from 'react';
 import {FaRegImage, FaQuoteRight, FaTimesCircle} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 import {v4 as uuidv4} from 'uuid'
 
 import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
@@ -170,7 +171,7 @@ export const CreatePost = (props) => {
             <div className="post-container">
                 <div className="profile-picture-container">
                     {/* TODO Replace this image with the real profile picture */}
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" />
+                    <Link to="me"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" /></Link>
                 </div>
                 {/* TODO The styling of this needs to be refined */}
                 <div className="post-attributes">

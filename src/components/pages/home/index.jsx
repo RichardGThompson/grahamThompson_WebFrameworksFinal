@@ -86,7 +86,7 @@ export const Home = (props) => {
     
     return(
         <div>
-            <Header logoutFunction={logoutFunction}/>
+            <Header logoutFunction={logoutFunction} userData={userData}/>
             <div className="home-container">
                 <CreatePost userData={userData} getPostsFunction={getPosts}/>
                 <h2>Recent Posts</h2>

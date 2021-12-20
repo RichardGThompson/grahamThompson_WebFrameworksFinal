@@ -1,0 +1,48 @@
+.my-account-wrapper{
+    padding: 0 2rem;
+    color: #f1f2f6;
+}
+
+.my-account-wrapper .account-info-wrapper{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    height: 120px;
+    border-bottom: 1px solid #57606f;
+    margin-bottom: 1rem;
+}
+
+.account-info-wrapper .left{
+    height: inherit;
+}
+
+.account-info-wrapper .name-picture-container{
+    display: flex;
+    height: inherit;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.name-picture-container .user-image-container{
+    height: 70%;
+    padding-right: 1rem;
+}
+
+.name-picture-container .user-image-container img{
+    height: 100%;
+    border-radius: 50%;
+}
+
+.name-picture-container .name-container{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.account-info-wrapper .right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-account-wrapper .user-posts-container{
+    margin-top: 1rem;
+}
