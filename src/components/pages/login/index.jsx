@@ -3,22 +3,22 @@ import React, {useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-
+import {v4 as uuidv4} from 'uuid';
 
 export const Login = (props) => {
     const {register, handleSubmit} = useForm();
 
     const navigate = useNavigate();
-
     const [loginMode, setLoginMode] = useState('login');
     const [pageTitle, setPageTitle] = useState('Login to your account!');
     const [pageSubtitle, setPageSubtitle] = useState('Welcome back to your favorite platform!');
 
+
+
     const loginUser = async(formValues) => {
         const auth = getAuth();
         try{
-            const loginUser = await signInWithEmailAndPassword(auth, formValues.userEmail, formValues.userPassword);
-            navigate('/', {replace: true});
+            const loginUser = await signInWithEmailAndPassword(auth, formValues.userEmail, formValues.userPassword).then(() => {navigate('/', {replace: true});});
         }
         catch(err){
             console.log(err);
@@ -31,9 +31,6 @@ export const Login = (props) => {
             // Validate that the passwords are matching
             if(formValues.userPassword === formValues.userPasswordConfirm){
                 const signUpUser = await createUserWithEmailAndPassword(auth, formValues.userEmail, formValues.userPassword);
-                
-                
-                
                 try{
                     const userID = signUpUser._tokenResponse.localId;
 
@@ -48,6 +45,12 @@ export const Login = (props) => {
                             userLastName: {
                                 stringValue: formValues.userLastName
                             },
+                            userEmail: {
+                                stringValue: formValues.userEmail
+                            },
+                            userImage: {
+                                stringValue: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+                            },
                         }
                         
                     }
@@ -60,7 +63,8 @@ export const Login = (props) => {
                         body: JSON.stringify(formattedData)
                     });
 
-                    console.log(response);
+                    loginUser(formValues);
+                    
                 }
                 catch(err){
                     console.log(err);
@@ -85,7 +89,8 @@ export const Login = (props) => {
             default:
                 console.log("ERROR: Condition not expected!");
         }
-    }, [loginMode])
+    }, [loginMode]);
+
     
     return(
         <div className="login-page-wrapper">

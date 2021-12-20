@@ -6,7 +6,7 @@ import React, {useEffect, useState} from 'react';
 import {CreatePost} from './../../createPost';
 import {v4 as uuidv4} from 'uuid';
 
-export const MyAccount = () => {
+export const MyAccount = (props) => {
 
     const [userPosts, setUserPosts] = useState([]);
     const [userData, setUserData] = useState([]);
@@ -41,7 +41,13 @@ export const MyAccount = () => {
                     navigate('/login', {replace: true});
                 }
                 else{
-                    const userEmail = auth.currentUser.email;
+                    let userEmail;
+                    if(auth.currentUser.email){
+                        userEmail = auth.currentUser.email.toLowerCase();
+                    }
+                    else{
+                        userEmail = user.email.toLowerCase();
+                    }
                     getUserData(userEmail).then(function(value) {
                         setUserData(value[0]);
                         getUserPosts(value[0]);
@@ -60,7 +66,7 @@ export const MyAccount = () => {
             const formattedUsers = data.documents.map( (user) => {
                 return user.fields;
             });
-            const userData = formattedUsers.filter(user => user.userEmail.stringValue === userEmail);
+            const userData = formattedUsers.filter(user => user.userEmail.stringValue.toLowerCase() === userEmail);
             return userData;
         }
         catch(err){

@@ -2,7 +2,7 @@ import './styles.css';
 import React, {useState, useEffect} from 'react';
 import {FaRegImage, FaQuoteRight, FaTimesCircle} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
-import {v4 as uuidv4} from 'uuid'
+import {v4 as uuidv4} from 'uuid';
 
 import {getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 
@@ -167,7 +167,7 @@ export const CreatePost = (props) => {
             <div className="post-container">
                 <div className="profile-picture-container">
                     {/* TODO Replace this image with the real profile picture */}
-                    <Link to="me"><img src={props.userData[0].userImage && `${props.userData[0].userImage.stringValue}`} alt="" /></Link>
+                    <Link to="/me"><img src={props.userData[0].userImage && `${props.userData[0].userImage.stringValue}`} alt="" /></Link>
                 </div>
                 {/* TODO The styling of this needs to be refined */}
                 <div className="post-attributes">

@@ -10,6 +10,7 @@ import {v4 as uuidv4} from 'uuid';
 export const Home = (props) => {
     const [posts, setPosts] = useState([]);
     const [userData, setUserData] = useState([]);
+    const [userEmail, setUserEmail] = useState('');
 
     const navigate = useNavigate();
 
@@ -24,14 +25,20 @@ export const Home = (props) => {
             }
             else{
                 // Get the current user's ID based on their email.
-                const userEmail = auth.currentUser.email;
-
-                if(!userData[0]){
-                    getUserData(userEmail).then(function(value) {
-                        setUserData(value);
-                    });
-                } 
-                // setUserData(getUserData(userEmail));
+                if(auth.currentUser.email){
+                        if(!userData[0]){
+                        getUserData(auth.currentUser.email).then(function(value) {
+                            setUserData(value);
+                        });
+                    } 
+                }
+                else{
+                        if(!userData[0]){
+                        getUserData(user.email).then(function(value) {
+                            setUserData(value);
+                        });
+                    } 
+                }
             }
         });
     }, [])
@@ -45,7 +52,8 @@ export const Home = (props) => {
             const formattedUsers = data.documents.map( (user) => {
                 return user.fields;
             });
-            const userData = formattedUsers.filter(user => user.userEmail.stringValue === userEmail);
+            
+            const userData = formattedUsers.filter(user => user.userEmail.stringValue.toLowerCase() === userEmail.toLowerCase());
             return userData;
         }
         catch(err){
@@ -73,8 +81,6 @@ export const Home = (props) => {
         }
     }
 
-
-
     // Log out the user.
     const logoutFunction = () => {
         const auth = getAuth();
@@ -84,7 +90,7 @@ export const Home = (props) => {
             console.log(err);
         }
     }
-    
+
     return(
         <div>
             {
