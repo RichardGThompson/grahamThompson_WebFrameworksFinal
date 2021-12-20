@@ -26,10 +26,11 @@ export const Home = (props) => {
                 // Get the current user's ID based on their email.
                 const userEmail = auth.currentUser.email;
 
-                getUserData(userEmail).then(function(value) {
-                    setUserData(value);
-                });
-                
+                if(!userData[0]){
+                    getUserData(userEmail).then(function(value) {
+                        setUserData(value);
+                    });
+                } 
                 // setUserData(getUserData(userEmail));
             }
         });
@@ -86,14 +87,20 @@ export const Home = (props) => {
     
     return(
         <div>
-            <Header logoutFunction={logoutFunction} userData={userData}/>
-            <div className="home-container">
-                <CreatePost userData={userData} getPostsFunction={getPosts}/>
-                <h2>Recent Posts</h2>
-                <div className="posts-container">
-                    {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} postImage={post.imageURL}/>)}
+            {
+                userData[0] && 
+                <div>
+                    <Header logoutFunction={logoutFunction} userData={userData}/>
+                    <div className="home-container">
+                        <CreatePost userData={userData} getPostsFunction={getPosts}/>
+                        <h2>Recent Posts</h2>
+                        <div className="posts-container">
+                            {posts.map( (post) => <TextPost key={uuidv4()} userData={userData} userID={post.userID} userName={post.userName} userImage={post.userImage} body={post.body} postImage={post.imageURL}/>)}
+                        </div>
+                    </div>
                 </div>
-            </div>
+                
+            }
         </div>
         
     );

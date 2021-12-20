@@ -93,7 +93,7 @@ export const MyAccount = () => {
                 <div className="left">
                     <div className="name-picture-container">
                         <div className="user-image-container">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" />
+                            <img src={userData.userImage && `${userData.userImage.stringValue}`} alt="" />
                         </div>
                         <div className="name-container">
                             {/* Make sure elements are defined before display */}

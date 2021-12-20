@@ -1,13 +1,12 @@
 import './styles.css';
-import {FaHeart, FaRegHeart} from 'react-icons/fa';
 import React from 'react';
-
 
 export const TextPost = (props) => {
     return(
         <div className="text-post-container">
             <div className="author-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" />
+                <img src={props.userImage && `${props.userImage.stringValue}`} alt="" />
+                {/* <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" /> */}
                 <span className="details">
                     <h2>{props.userName.stringValue}</h2>
                 </span>
@@ -22,6 +21,7 @@ export const TextPost = (props) => {
                 props.postImage.stringValue && 
 
                 <div className="post-image-container">
+                    
                     <img src={props.postImage.stringValue} alt="" />
                 </div>
             }

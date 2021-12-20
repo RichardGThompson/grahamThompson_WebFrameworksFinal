@@ -28,10 +28,6 @@ export const CreatePost = (props) => {
     }, [image]);
 
     useEffect( () => {
-        console.log(`Post uploading: ${postUploading}`);
-    }, [postUploading]);
-
-    useEffect( () => {
 
         const clearInputs = () => {
             const textInput = document.querySelector('#post-text');
@@ -76,7 +72,7 @@ export const CreatePost = (props) => {
                         stringValue: props.userData[0].userID.stringValue
                     },
                     userImage: {
-                        stringValue: "REPLACE_IN_APP"
+                        stringValue: props.userData[0].userImage.stringValue
                     },
                     userName: {
                         stringValue: (`${props.userData[0].userFirstName.stringValue} ${props.userData[0].userLastName.stringValue}`)
@@ -97,7 +93,7 @@ export const CreatePost = (props) => {
                         stringValue: props.userData[0].userID.stringValue
                     },
                     userImage: {
-                        stringValue: "REPLACE_IN_APP"
+                        stringValue: props.userData[0].userImage.stringValue
                     },
                     userName: {
                         stringValue: (`${props.userData[0].userFirstName.stringValue} ${props.userData[0].userLastName.stringValue}`)
@@ -171,7 +167,7 @@ export const CreatePost = (props) => {
             <div className="post-container">
                 <div className="profile-picture-container">
                     {/* TODO Replace this image with the real profile picture */}
-                    <Link to="me"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" /></Link>
+                    <Link to="me"><img src={props.userData[0].userImage && `${props.userData[0].userImage.stringValue}`} alt="" /></Link>
                 </div>
                 {/* TODO The styling of this needs to be refined */}
                 <div className="post-attributes">

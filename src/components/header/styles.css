@@ -21,7 +21,9 @@
 }
 
 .header-wrapper .left-wrapper .profile-picture-container img{
+    aspect-ratio: 1;
     height: 100%;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -42,10 +44,6 @@
     flex-direction: row;
 }
 
-.header-wrapper .right-wrapper li:not(:first-of-type){
-    margin-left: 1.5rem;
-}
-
 .header-wrapper .right-wrapper .header-link{
     color: #f1f2f6;
     font-size: 16px;
@@ -53,4 +51,5 @@
     text-decoration: none;
     text-decoration: none;
     list-style: none;
+    margin-left: 1.5rem;
 }

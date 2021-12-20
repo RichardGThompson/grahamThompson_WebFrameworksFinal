@@ -17,6 +17,8 @@
 }
 
 .text-post-container .author-container img{
+    aspect-ratio: 1;
+    object-fit: cover;
     height: 100%;
     border-radius: 100px;
     margin-right: 0.75rem;

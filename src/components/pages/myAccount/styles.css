@@ -28,8 +28,10 @@
 }
 
 .name-picture-container .user-image-container img{
+    aspect-ratio: 1;
     height: 100%;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .name-picture-container .name-container{
@@ -45,4 +47,16 @@
 
 .my-account-wrapper .user-posts-container{
     margin-top: 1rem;
+}
+
+@media screen and (max-width: 400px) {
+    .my-account-wrapper .account-info-wrapper{
+        grid-template-columns: 100%;
+        height: auto;
+        padding-bottom: 1rem;
+    }
+
+    .account-info-wrapper .left{
+        height: 100px;
+    }
 }
